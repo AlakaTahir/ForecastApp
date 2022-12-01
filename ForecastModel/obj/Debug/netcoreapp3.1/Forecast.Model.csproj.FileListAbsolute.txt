@@ -1,0 +1,10 @@
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\bin\Debug\netcoreapp3.1\Forecast.Model.deps.json
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\bin\Debug\netcoreapp3.1\Forecast.Model.dll
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\bin\Debug\netcoreapp3.1\Forecast.Model.pdb
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.AssemblyInfo.cs
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.dll
+C:\Users\HP\Desktop\Practice\ForecastApp\ForecastModel\obj\Debug\netcoreapp3.1\Forecast.Model.pdb

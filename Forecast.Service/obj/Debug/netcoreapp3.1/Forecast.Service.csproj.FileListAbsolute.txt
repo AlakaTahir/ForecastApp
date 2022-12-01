@@ -1,0 +1,15 @@
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Service.deps.json
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Service.dll
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Service.pdb
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.AssemblyInfo.cs
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.dll
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.pdb
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Migration.dll
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Model.dll
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Migration.pdb
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\bin\Debug\netcoreapp3.1\Forecast.Model.pdb
+C:\Users\HP\Desktop\Practice\ForecastApp\Forecast.Service\obj\Debug\netcoreapp3.1\Forecast.Service.csproj.CopyComplete
