@@ -1,4 +1,5 @@
-﻿using Forecast.Migrations;
+﻿using Arch.EntityFrameworkCore.UnitOfWork;
+using Forecast.Migrations;
 using Forecast.Model.Entity;
 using Forecast.Model.ViewModel;
 using Forecast.Service.Interface;
@@ -11,16 +12,19 @@ namespace Forecast.Service.Service
 {
     public class PredictionInformationService : IPredictionInformationService
     {
-        private readonly ForecastInformationDataBaseContext _context;
-        public PredictionInformationService(ForecastInformationDataBaseContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public PredictionInformationService(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
+
+
+        //check if a record exist using email and date
 
         public BaseResponseViewModel CreateForecast(ForecastInformationRequestModel model)
         {
-            var Prediction = _context.ForecastInfos.FirstOrDefault(x => x.ForecastDate == model.ForecastDate);
-            if (Prediction == null)
+            var prediction = _unitOfWork.GetRepository<ForecastInfo>().GetFirstOrDefault(predicate: x=> x.Email == model.Email && x.ForecastDate == model.ForecastDate);
+            if (prediction == null)
             {
                 var info = new ForecastInfo();
                 info.Id = Guid.NewGuid();
@@ -41,14 +45,14 @@ namespace Forecast.Service.Service
             }
             else
             {
-                Prediction.MinimumTemperature = model.MinimumTemperature;
-                Prediction.MaximumTemperature = model.MaximumTemperature;
-                Prediction.WetBulb = model.WetBulb;
-                Prediction.DryBulb = model.DryBulb;
-                Prediction.Email = model.Email;
-                Prediction.UpdatedDate = DateTime.Now;
-                _context.ForecastInfos.Update(Prediction);
-                _context.SaveChanges();
+                prediction.MinimumTemperature = model.MinimumTemperature;
+                prediction.MaximumTemperature = model.MaximumTemperature;
+                prediction.WetBulb = model.WetBulb;
+                prediction.DryBulb = model.DryBulb;
+                prediction.Email = model.Email;
+                prediction.UpdatedDate = DateTime.Now;
+                _unitOfWork.GetRepository<ForecastInfo>().Insert(prediction);
+                _unitOfWork.SaveChanges();
 
                 return new BaseResponseViewModel
                 {
@@ -60,9 +64,9 @@ namespace Forecast.Service.Service
 
         }
 
-        public ForecastInformationResponseViewModel GetForecastByDate(DateTime date)
+        public ForecastInformationResponseViewModel GetForecastDateByEmail(DateTime date, string email)
         {
-            var Forecast = _context.ForecastInfos.FirstOrDefault(x => x.ForecastDate.Year == date.Year && x.ForecastDate.Month == date.Month && x.ForecastDate.Day == date.Day);
+            var Forecast = _unitOfWork.GetRepository<ForecastInfo>().GetFirstOrDefault(predicate: x => x.ForecastDate.Year == date.Year && x.ForecastDate.Month == date.Month && x.ForecastDate.Day == date.Day && x.Email ==  email);
             if (Forecast != null)
             {
                 return new ForecastInformationResponseViewModel
@@ -71,9 +75,38 @@ namespace Forecast.Service.Service
                     MaximumTemperature = Forecast.MaximumTemperature,
                     MinimumTemperature = Forecast.MinimumTemperature,
                     Wetbulb = Forecast.WetBulb,
-                    CreatedDate = Forecast.CreatedDate
-
+                    CreatedDate = Forecast.CreatedDate,
+                    Email = Forecast.Email
                 };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<ForecastInformationResponseViewModel> GetForecastByDate(DateTime date) //4: 23: 37 PM, Satuday 24, February, 2022.
+        {
+            var forecasts = _unitOfWork.GetRepository<ForecastInfo>().GetAll().Where(x => x.ForecastDate.Year == date.Year && x.ForecastDate.Month == date.Month && x.ForecastDate.Day == date.Day).ToList();
+            if (forecasts.Count != 0)
+            {
+                var response = new List<ForecastInformationResponseViewModel>();
+
+                foreach (var forecast in forecasts)
+                {
+                    var singleModel = new ForecastInformationResponseViewModel
+                    {
+                        DryBulb = forecast.DryBulb,
+                        MaximumTemperature = forecast.MaximumTemperature,
+                        MinimumTemperature = forecast.MinimumTemperature,
+                        Wetbulb = forecast.WetBulb,
+                        CreatedDate = forecast.CreatedDate,
+                        Email = forecast.Email
+                    };
+                    response.Add(singleModel);
+                }
+
+                return response;
             }
             else
             {
@@ -83,7 +116,7 @@ namespace Forecast.Service.Service
 
         public ForecastInformationResponseViewModel GetForecastByMail(string emailAddress)
         {
-            var Forecast = _context.ForecastInfos.FirstOrDefault(x => x.Email == emailAddress);
+            var Forecast = _unitOfWork.GetRepository<ForecastInfo>().GetFirstOrDefault(predicate: x => x.Email == emailAddress);
             if (Forecast != null)
             {
                 return new ForecastInformationResponseViewModel
@@ -100,13 +133,14 @@ namespace Forecast.Service.Service
                 return null;
             }
         }
+
         public BaseResponseViewModel DeleteForecast(Guid id) 
         {
-            var Forecast = _context.ForecastInfos.FirstOrDefault(x => x.Id == id);
+            var Forecast = _unitOfWork.GetRepository<ForecastInfo>().GetFirstOrDefault(predicate: x => x.Id == id);
             if (Forecast != null)
             {
-                _context.ForecastInfos.Remove(Forecast);
-                _context.SaveChanges();
+                _unitOfWork.GetRepository<ForecastInfo>().Delete(Forecast);
+                _unitOfWork.SaveChanges();
 
                 return new BaseResponseViewModel 
                 {

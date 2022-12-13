@@ -14,7 +14,8 @@ namespace Forecast.Model.ViewModel
         public double MaximumTemperature { get; set; }
         public double RelativeHumidity { get; set; }
         public DateTime CreatedDate { get; set; }
-        
+        public string Email { get; set; }
+
     }
 
  }

@@ -9,9 +9,10 @@ namespace Forecast.Service.Interface
     {
         BaseResponseViewModel CreateForecast(ForecastInformationRequestModel model);
 
-        ForecastInformationResponseViewModel GetForecastByDate(DateTime date);
+        ForecastInformationResponseViewModel GetForecastDateByEmail(DateTime date, string email);
         ForecastInformationResponseViewModel GetForecastByMail(string emailAddress);
         BaseResponseViewModel DeleteForecast(Guid id);
+        List<ForecastInformationResponseViewModel> GetForecastByDate(DateTime date);
 
     }
 }

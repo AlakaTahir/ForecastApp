@@ -15,25 +15,27 @@ namespace Forecast.API.Controllers
         {
             _predictionInformationService = predictionInformationService;
         }
-        [HttpPost]
+
+
+        [HttpPost("CreateForecast")]
         public IActionResult CreateForecast(ForecastInformationRequestModel model) 
         {
          var response = _predictionInformationService.CreateForecast(model);
             return Ok(response);
         } 
-        [HttpGet]
+        [HttpGet("GetForecastByDate")]
         public IActionResult GetForecastByDate(DateTime date)
         {
             var response =_predictionInformationService.GetForecastByDate(date);
             return Ok(response);
         }
-        [HttpGet]
+        [HttpGet("GetForecastByMail")]
         public IActionResult GetForecastByMail(string emailAddress)
         {
             var response = _predictionInformationService.GetForecastByMail(emailAddress);
             return Ok(response);
         }
-        [HttpDelete]
+        [HttpDelete("DeleteForecast")]
         public IActionResult DeleteForecast(Guid id) 
         {
          var response = _predictionInformationService.DeleteForecast(id);
