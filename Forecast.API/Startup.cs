@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
+using Arch.EntityFrameworkCore.UnitOfWork;
 
 namespace Forecast.API
 {
@@ -31,8 +32,9 @@ namespace Forecast.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<ForecastInformationDataBaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ForecastInformationDataBaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"))).AddUnitOfWork<ForecastInformationDataBaseContext>();
             services.AddTransient<IPredictionInformationService, PredictionInformationService>();
+            services.AddTransient<IMonitoringService, MonitoringService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

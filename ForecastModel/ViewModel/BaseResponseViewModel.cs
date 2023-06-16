@@ -8,7 +8,6 @@ namespace Forecast.Model.ViewModel
     {
         public bool Status { get; set; }
         public string Message { get; set; }
-        public double Forecast { get; set; }
     }
 }
 

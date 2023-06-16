@@ -23,7 +23,7 @@ namespace Forecast.Service.Service
 
         public BaseResponseViewModel CreateForecast(ForecastInformationRequestModel model)
         {
-            var prediction = _unitOfWork.GetRepository<ForecastInfo>().GetFirstOrDefault(predicate: x=> x.Email == model.Email && x.ForecastDate == model.ForecastDate);
+            var prediction = _unitOfWork.GetRepository<ForecastInfo>().GetFirstOrDefault(predicate: x=> x.Email == model.Email && x.ForecastDate.Year == model.ForecastDate.Year && x.ForecastDate.Month == model.ForecastDate.Month && x.ForecastDate.Day == model.ForecastDate.Day);
             if (prediction == null)
             {
                 var info = new ForecastInfo();
@@ -35,6 +35,9 @@ namespace Forecast.Service.Service
                 info.Email = model.Email;
                 info.CreatedDate = DateTime.Now;
                 info.ForecastDate = model.ForecastDate;
+
+                _unitOfWork.GetRepository<ForecastInfo>().Insert(info);
+                _unitOfWork.SaveChanges();
 
                 return new BaseResponseViewModel
                 {
@@ -51,7 +54,7 @@ namespace Forecast.Service.Service
                 prediction.DryBulb = model.DryBulb;
                 prediction.Email = model.Email;
                 prediction.UpdatedDate = DateTime.Now;
-                _unitOfWork.GetRepository<ForecastInfo>().Insert(prediction);
+                _unitOfWork.GetRepository<ForecastInfo>().Update(prediction);
                 _unitOfWork.SaveChanges();
 
                 return new BaseResponseViewModel
@@ -88,21 +91,22 @@ namespace Forecast.Service.Service
         public List<ForecastInformationResponseViewModel> GetForecastByDate(DateTime date) //4: 23: 37 PM, Satuday 24, February, 2022.
         {
             var forecasts = _unitOfWork.GetRepository<ForecastInfo>().GetAll().Where(x => x.ForecastDate.Year == date.Year && x.ForecastDate.Month == date.Month && x.ForecastDate.Day == date.Day).ToList();
+            
             if (forecasts.Count != 0)
             {
                 var response = new List<ForecastInformationResponseViewModel>();
 
                 foreach (var forecast in forecasts)
                 {
-                    var singleModel = new ForecastInformationResponseViewModel
-                    {
-                        DryBulb = forecast.DryBulb,
-                        MaximumTemperature = forecast.MaximumTemperature,
-                        MinimumTemperature = forecast.MinimumTemperature,
-                        Wetbulb = forecast.WetBulb,
-                        CreatedDate = forecast.CreatedDate,
-                        Email = forecast.Email
-                    };
+                    var singleModel = new ForecastInformationResponseViewModel();
+                    singleModel.DryBulb = forecast.DryBulb;
+
+                    singleModel.MaximumTemperature = forecast.MaximumTemperature;
+                    singleModel.MinimumTemperature = forecast.MinimumTemperature;
+                    singleModel.Wetbulb = forecast.WetBulb;
+                    singleModel.CreatedDate = forecast.CreatedDate;
+                    singleModel.Email = forecast.Email;
+
                     response.Add(singleModel);
                 }
 
@@ -126,6 +130,7 @@ namespace Forecast.Service.Service
                     MaximumTemperature = Forecast.MaximumTemperature,
                     MinimumTemperature = Forecast.MinimumTemperature,
                     CreatedDate = Forecast.CreatedDate,
+                    Email = Forecast.Email
                 };
             }
             else
